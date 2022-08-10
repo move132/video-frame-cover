@@ -1,6 +1,6 @@
 {
   "name": "video-frame-cover",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "video capture frame picture",
   "author": {
     "name": "min.wan"
@@ -9,9 +9,9 @@
 	"homepage": "https://github.com/move132/video-frame-cover",
 	"keywords": [
 		"sncare",
-		"cli"
+		"tools"
 	],
-  "main": "./example/video-frame-cover.min.js",
+  "main": "dist/video-frame-cover.min.js",
   "scripts": {
     "dev": "webpack --mode=development --env development --watch",
     "build": "webpack --mode=production --env production --progress"
