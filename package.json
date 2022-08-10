@@ -1,0 +1,22 @@
+{
+  "name": "video-frame-cover",
+  "version": "1.0.3",
+  "description": "video capture frame picture",
+  "author": {
+    "name": "min.wan",
+    "github": "https://github.com/move132"
+  },
+  "main": "./dist/video-frame-cover.min.js",
+  "scripts": {
+    "dev": "webpack --mode=development --env development --watch",
+    "build": "webpack --mode=production --env production --progress"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.13.14",
+    "@babel/preset-env": "7.13.12",
+    "babel-loader": "8.2.2",
+    "webpack": "5.30.0",
+    "webpack-cli": "4.6.0"
+  }
+}

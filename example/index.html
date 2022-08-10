@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get video frame</title>
+    <script src="../dist/video-frame-cover.min.js"></script>
+
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <style>
+        .cover {
+            width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgb(0 0 0 / 7%);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .cover-img {
+            width: 600px;
+            height: 300px;
+            background: #eee;
+            border: 1px solid  #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .el-icon-picture-outline {
+            font-size: 50px;
+            color: #d0d0d0;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .box {
+            display: flex;
+        }
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+        .col {
+            flex: 1
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .info {
+            margin-top: 15px;
+        }
+        code {
+            color: #f55656;
+            border-color: #fde2e2;
+            font-size: 14px;
+            padding: 2px;
+            text-shadow: 0 2px 2px rgba(0,0,0,0.05);
+            font-family: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        }
+        .link-github {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            fill: #ccc;
+        }
+        .link-github:hover svg {
+            fill: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Get video frame</h1>
+        <div class="cover">
+            <div class="box">
+                <el-image class="cover-img"  v-loading="isLoading" id="img" :src="imgsrc">
+                    <div slot="error" class="image-slot">
+                        <i class="el-icon-picture-outline"></i>
+                    </div>
+                </el-image>
+            </div>
+    
+            <div class="actions">
+                <el-button @click="start" type="primary">初始化</el-button>
+                <el-button @click="downloadBtn" type="primary">下载当前帧</el-button>
+                <el-button @click="nextFrame" type="primary">下一帧</el-button>
+                <el-button @click="appoint" type="primary">指定({{nextTime}}s)时间</el-button>
+            </div>
+            <div class="row">
+                <el-select class="col" v-model="videoUrl" @change="changeVideo" placeholder="请选择视频">
+                    <el-option
+                       v-for="item in mp4"
+                       :key="item.id"
+                       :value="item.url">
+                       {{ `【${item.name}】`+ item.url}}
+                    </el-option>
+                </el-select>
+                <el-input-number class="col" v-model="nextTime" @change="appoint" :min="1" :max="videoInfo.duration" placeholder="指定时间帧(秒)"></el-input-number>
+            </div>
+            <div class="info" v-if="videoInfo">
+                <code>{{videoInfo}}</code>
+            </div>
+        </div>
+        <a class="link-github" href="https://github.com/move132" target="_blank">
+            <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle">
+                <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+        </a>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return { 
+                isLoading: false,
+                cover: null,
+                nextTime: '',
+                videoUrl: './thwj.mp4', // vnode-dom
+                imgsrc: '',
+                videoInfo: '',
+                mp4: [
+                    {id: 2, name:'大橘', url: 'https://vd4.bdstatic.com/mda-ma2gq0my4ar6a8dz/v1-cae/1080p/mda-ma2gq0my4ar6a8dz.mp4'},
+                    {id: 3, name:'头号玩家', url: './thwj.mp4'},
+                    {id: 4, name:'变形金刚1', url: 'https://vd3.bdstatic.com/mda-khb9j4g6c25biyqj/v1-cae/1080p/mda-khb9j4g6c25biyqj.mp4'},
+                    {id: 5, name:'精美', url: 'https://vd4.bdstatic.com/mda-mjak88esahdcpmc5/1080p/cae_h264/1633962937397290860/mda-mjak88esahdcpmc5.mp4'},
+                    {id: 6, name:'变形金刚4K', url: 'https://vd3.bdstatic.com/mda-nd6k8tnavw6sj0a5/uhd/cae_h264_delogo/1649341416749683469/mda-nd6k8tnavw6sj0a5.mp4'},
+                    {id: 7, name: '混剪3D', url: 'https://vd3.bdstatic.com/mda-kksk814vwc1m06av/sc/mda-kksk814vwc1m06av.mp4'}
+                ]
+            }
+        },
+        created() {
+            
+        },
+        methods: {
+            // 生成截图
+            start() {
+                if (!this.videoUrl) {
+                    this.$message({
+                        message: '请选择一个视频',
+                        type: 'error'
+                    })
+                    return
+                }
+                this.isLoading = true
+                this.cover = new VideoFrameCover({
+                    url: this.videoUrl,
+                    quality: 0.9,
+                    imageType: 'image/jpeg',
+                    isCheckBackgroundColor: true, // 是否检查图片为纯色
+                    success: (res, e) => {
+                        this.videoInfo = {
+                            videoWidth: e.videoWidth,
+                            videoHeight: e.videoHeight,
+                            duration: Math.floor(e.duration || 0)
+                        }
+                        this.imgsrc = res
+                        this.isLoading = false
+                    }
+                })
+            },
+            // 下载图片
+            downloadBtn() {
+                this.cover && this.cover.downloadFile(this.imgsrc)
+            },
+            // 获取下一秒视频截图
+            nextFrame() {
+                this.cover && this.cover.nextFrame()
+            },
+            // 获取指定帧视频截图
+            appoint() {
+                this.cover && this.cover.appointFrame(this.nextTime)
+            },
+            changeVideo() {
+                this.cover = new VideoFrameCover({
+                    url: this.videoUrl,
+                    quality: 0.9,
+                    imageType: 'image/jpeg',
+                    isCheckBackgroundColor: true // 是否检查图片为纯色
+                })
+            }
+        }
+    })
+</script>
+
+</html>
