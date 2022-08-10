@@ -32,7 +32,7 @@
 			this.videoWidth = 0
 			this.imageType = imageType || 'image/jpeg'
 			this.quality = quality ? (quality > 0.2 ? quality : 0.2) : 0.95 // 不要用1，会额外增大base64大小。
-			this.imgWidth = imgWidth || 800
+			this.imgWidth = imgWidth // || 800
 			this.currentTime = currentTime < 1 ? 1 : currentTime // 默认设置1S
 			this.isCheckBackgroundColor = isCheckBackgroundColor
 			this.duration = 0 // 视频时长
@@ -91,11 +91,20 @@
 			this.video.currentTime = time
 		}
 
+		// 获取上一秒的截图
+		previousFrame() {
+			let currentTime = this.currentTime
+			if (this.currentTime === 0) {
+				return
+			}
+			currentTime--
+			this.appointFrame(currentTime)
+		}
+
 		// 获取下一秒的截图
 		nextFrame() {
 			const duration = this.duration
 			let currentTime = this.currentTime
-
 			if (this.currentTime === duration) {
 				return
 			}
@@ -128,21 +137,13 @@
 			ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height)
 			// 如果开启图片校验模式
 			if (isCheckBackgroundColor) {
-				try {
-					const checkImageResult = this.checkImage(ctx, videoWidth, videoHeight)
-					if (!checkImageResult) {
-						this.nextFrame()
-						return
-					}
-				} catch (e) {
-					debugger
+				const checkImageResult = this.checkImage(ctx, videoWidth, videoHeight)
+				if (!checkImageResult) {
+					this.nextFrame()
+					return
 				}
 			}
 			const img = canvas.toDataURL(this.imageType, self.quality)
-			// callback && callback(img)
-			const videoInfo = {
-				
-			}
 			this.success && this.success(img, this.video)
 		}
 

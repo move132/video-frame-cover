@@ -93,6 +93,7 @@
             <div class="actions">
                 <el-button @click="start" type="primary">初始化</el-button>
                 <el-button @click="downloadBtn" type="primary">下载当前帧</el-button>
+                <el-button @click="preFrame" type="primary">上一帧</el-button>
                 <el-button @click="nextFrame" type="primary">下一帧</el-button>
                 <el-button @click="appoint" type="primary">指定({{nextTime}}s)时间</el-button>
             </div>
@@ -172,6 +173,9 @@
             // 下载图片
             downloadBtn() {
                 this.cover && this.cover.downloadFile(this.imgsrc)
+            },
+            preFrame() {
+                this.cover && this.cover.previousFrame()
             },
             // 获取下一秒视频截图
             nextFrame() {

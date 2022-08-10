@@ -1,5 +1,7 @@
 .DS_Store
 node_modules
+/dist/video-frame-cover.js
+/example/thwj.mp4
 
 # local env files
 .env.local

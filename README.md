@@ -82,6 +82,10 @@ Whether to verify that the picture is a solid color, the default is `false`, if 
 
 Download video frame pictures
 
+#### previousFrame()
+
+Get the video picture of the previous second
+
 #### nextFrame()
 
 Get the next second video picture
@@ -102,6 +106,7 @@ const videoFrameCover = new VideoFrameCover({
 })
 
 videoFrameCover.downloadFile(this.imgsrc)
+videoFrameCover.previousFrame()
 videoFrameCover.nextFrame()
 videoFrameCover.appointFrame(23) // Picture at 23 seconds
 ```
@@ -109,3 +114,4 @@ videoFrameCover.appointFrame(23) // Picture at 23 seconds
 
 ## license
 
+[MIT](./LICENSE)
