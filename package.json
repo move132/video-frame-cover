@@ -6,7 +6,7 @@
     "name": "min.wan",
     "github": "https://github.com/move132"
   },
-  "main": "./dist/video-frame-cover.min.js",
+  "main": "./example/video-frame-cover.min.js",
   "scripts": {
     "dev": "webpack --mode=development --env development --watch",
     "build": "webpack --mode=production --env production --progress"

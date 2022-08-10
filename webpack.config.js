@@ -9,7 +9,7 @@ module.exports  = (env) => {
         mode: env.production ? 'production' : 'development',
         output: {
             filename,
-            path: path.resolve(__dirname, "dist"),
+            path: path.resolve(__dirname, "example"),
             libraryTarget: "umd",
             library: "VideoFrameCover"
         },
