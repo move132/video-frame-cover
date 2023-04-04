@@ -110,8 +110,3 @@ videoFrameCover.previousFrame()
 videoFrameCover.nextFrame()
 videoFrameCover.appointFrame(23) // Picture at 23 seconds
 ```
-
-
-## license
-
-[MIT](./LICENSE)
