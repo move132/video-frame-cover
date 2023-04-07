@@ -27,6 +27,8 @@ new VideoFrameCover({
     }
 })
 ```
+## example
+[example](https://move132.github.io/video-frame-cover/example/)
 
 ### Options
 
