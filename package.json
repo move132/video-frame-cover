@@ -9,6 +9,7 @@
   "homepage": "https://move132.github.io/video-frame-cover",
   "keywords": [
     "sncare",
+    "cli",
     "tools"
   ],
   "main": "dist/video-frame-cover.min.js",
