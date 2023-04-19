@@ -8,7 +8,6 @@ webpack.config.js
 .editorconfig
 .eslintrc.json
 .prettierrc.json
-./index.js
 tsup.config.ts
 .github
 .vscode
