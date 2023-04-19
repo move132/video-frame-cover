@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer" />
     <title>Get video frame</title>
-    <script src="../dist/video-frame-cover.min.js"></script>
+    <script src="../dist/index.global.js"></script>
 
     <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
     <!-- 引入样式 -->
@@ -155,7 +155,7 @@
                     return
                 }
                 this.isLoading = true
-                this.cover = new VideoFrameCover({
+                this.cover = VideoFrameCover({
                     url: this.videoUrl,
                     quality: 0.9,
                     imageType: 'image/jpeg',
@@ -187,12 +187,7 @@
                 this.cover && this.cover.appointFrame(this.nextTime)
             },
             changeVideo() {
-                this.cover = new VideoFrameCover({
-                    url: this.videoUrl,
-                    quality: 0.9,
-                    imageType: 'image/jpeg',
-                    isCheckBackgroundColor: true // 是否检查图片为纯色
-                })
+                this.start()
             }
         }
     })

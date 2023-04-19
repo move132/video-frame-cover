@@ -5,3 +5,8 @@ package-lock.ks
 webpack.config.js
 .npmignore
 .gitignore
+.editorconfig
+.eslintrc.json
+.prettierrc.json
+index.js
+tsup.config.ts

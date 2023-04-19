@@ -1,12 +1,12 @@
 .DS_Store
 node_modules
-/dist/video-frame-cover.js
 /example/thwj.mp4
-
+package-lock.json
+pnpm-lock.yaml
 # local env files
 .env.local
 .env.*.local
-
+dist
 # Log files
 npm-debug.log*
 yarn-debug.log*

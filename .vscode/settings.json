@@ -1,0 +1,39 @@
+{
+	"css.lint.unknownAtRules": "ignore",
+	// 开启 eslint
+	"eslint.enable": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true,
+		"source.fixAll.eslint": true
+	},
+	// 开启 prettier
+	"prettier.enable": true,
+	"editor.linkedEditing": true,
+	// 开启 eslint 作为格式化工具
+	"eslint.format.enable": true,
+	// 包管理器 pnpm
+	"eslint.packageManager": "pnpm",
+	// 默认格式化选择 prettier,
+	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[vue]": {
+		"editor.defaultFormatter": "Vue.volar"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
+}

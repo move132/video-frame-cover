@@ -1,0 +1,6 @@
+{
+    "root": true,
+    "extends": [
+        "@dense-labs/eslint-config-ts"
+    ]
+}
