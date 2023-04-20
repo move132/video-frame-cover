@@ -11,3 +11,4 @@ webpack.config.js
 tsup.config.ts
 .github
 .vscode
+src

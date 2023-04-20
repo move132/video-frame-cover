@@ -4,7 +4,7 @@ declare global {
 	}
 }
 
-export type Options = {
+type Options = {
 	/** 视频地址 */
 	url: string
 	/** 截取的时间点，单位为秒，默认为视频的中间位置 */
@@ -264,7 +264,7 @@ class VideoFrameCoverClass {
 	}
 }
 
-export function VideoFrameCover(opt: Options) {
+export default function VideoFrameCover(opt: Options) {
 	return new VideoFrameCoverClass(opt)
 }
 if (typeof window !== 'undefined') {

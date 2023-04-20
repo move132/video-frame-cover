@@ -60,4 +60,4 @@ declare class VideoFrameCoverClass {
 }
 declare function VideoFrameCover(opt: Options): VideoFrameCoverClass;
 
-export { Options, VideoFrameCover };
+export { VideoFrameCover as default };
