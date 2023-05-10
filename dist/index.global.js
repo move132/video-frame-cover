@@ -1,1 +1,177 @@
-var VFrameCover=(()=>{var u=Object.defineProperty;var g=Object.getOwnPropertyDescriptor;var v=Object.getOwnPropertyNames;var f=Object.prototype.hasOwnProperty;var p=(s,e)=>{for(var t in e)u(s,t,{get:e[t],enumerable:!0})},b=(s,e,t,i)=>{if(e&&typeof e=="object"||typeof e=="function")for(let n of v(e))!f.call(s,n)&&n!==t&&u(s,n,{get:()=>e[n],enumerable:!(i=g(e,n))||i.enumerable});return s};var T=s=>b(u({},"__esModule",{value:!0}),s);var y={};p(y,{default:()=>h});var d=class{constructor(e){let{url:t,currentTime:i=1,quality:n,imgWidth:a,imageType:o="image/jpeg",isCheckBackgroundColor:r=!1,success:c}=e;t||console.warn("\u89C6\u9891\u94FE\u63A5\u4E0D\u80FD\u4E3A\u7A7A"),this.url=t,this.video=null,this.videoWidth=0,this.imageType=o,this.quality=n?n>.2?n:.2:.95,this.imgWidth=a,this.currentTime=i<1?1:i,this.isCheckBackgroundColor=r,this.duration=0,this.success=c,this.getVideoFrame()}getVideoFrame(){let e=this,t=this.video||document.createElement("video"),i=e.currentTime;t.src=e.url,t.style.cssText="position: fixed; top: -100%; left: -100%; width: 400px; display: none; visibility: hidden;",t.controls=!0,t.crossOrigin="Anonymous",t.currentTime=i,t.addEventListener("timeupdate",()=>{this.setVideoInfo(),this.currentTime<=this.duration?this.generateCanvas():this.nextFrame()}),this.video=t,document.body.appendChild(t)}setVideoInfo(){let e=this.video;this.videoWidth=e.videoWidth,this.videoHeight=e.videoHeight,this.duration=Math.floor(e.duration||0)}appointFrame(e){if(!this.video){console.warn("\u8BF7\u5148\u521D\u59CB\u5316");return}let t=this.duration;e=e>t?t:e,this.currentTime=e,this.video.currentTime=e}previousFrame(){let e=this.currentTime;this.currentTime!==0&&(e--,this.appointFrame(e))}nextFrame(){let e=this.duration,t=this.currentTime;this.currentTime!==e&&(t++,this.appointFrame(t))}generateCanvas(){if(!this.video){console.warn("\u8BF7\u5148\u521D\u59CB\u5316");return}let e=this,t=this.canvas||document.createElement("canvas"),i=t.getContext("2d",{alpha:!1}),n=this.imgWidth,a=this.isCheckBackgroundColor,o=this.videoWidth,r=this.videoHeight;if(this.canvas||(n&&(r=n/(o/r),o=n),t.width=o,t.height=r),i==null||i.drawImage(this.video,0,0,t.width,t.height),a&&!this.checkImage(i,o,r)){this.nextFrame();return}let c=t.toDataURL(this.imageType,e.quality);this.success&&this.success(c,this.video)}checkImage(e,t,i){let a=e.getImageData(0,0,t,i).data,o={},r=0;for(let c=0,l=a.length;c<l;c+=4){let m=a.slice(c,c+4).join("");if(o[m]||(o[m]=1,r++),r>100)return!0}return!1}base64ToBlob(e){if(!e){console.warn("base64\u4E0D\u80FD\u4E3A\u7A7A");return}let t=e.split(";base64,"),i=t[0].split(":")[1],n=window.atob(t[1]),a=n.length,o=new Uint8Array(a);for(let r=0;r<a;++r)o[r]=n.charCodeAt(r);return new Blob([o],{type:i})}downloadFile(e){let t=Date.now();if(!e){console.warn("base64\u4E0D\u80FD\u4E3A\u7A7A");return}let i=document.createElement("a"),n=this.base64ToBlob(e);if(!n)return;document.createEvent("HTMLEvents").initEvent("click",!0,!0),i.download=t+"",i.href=URL.createObjectURL(n),i.click()}};function h(s){return new d(s)}typeof window<"u"&&(window.VideoFrameCover=h);return T(y);})();
+(() => {
+  // src/index.ts
+  var VideoFrameCoverClass = class {
+    constructor(config) {
+      const { url, currentTime = 1, quality, imgWidth, imageType = "image/jpeg", isCheckBackgroundColor = false, success } = config;
+      if (!url) {
+        console.warn("\u89C6\u9891\u94FE\u63A5\u4E0D\u80FD\u4E3A\u7A7A");
+      }
+      this.url = url;
+      this.video = null;
+      this.videoWidth = 0;
+      this.imageType = imageType;
+      this.quality = quality ? quality > 0.2 ? quality : 0.2 : 0.95;
+      this.imgWidth = imgWidth;
+      this.currentTime = currentTime < 1 ? 1 : currentTime;
+      this.isCheckBackgroundColor = isCheckBackgroundColor;
+      this.duration = 0;
+      this.success = success;
+      this.getVideoFrame();
+    }
+    getVideoFrame() {
+      const self = this;
+      const video = this.video || document.createElement("video");
+      const currentTime = self.currentTime;
+      video.src = self.url;
+      video.style.cssText = `position: fixed; top: -100%; left: -100%; width: 400px; display: none; visibility: hidden;`;
+      video.controls = true;
+      video.crossOrigin = "Anonymous";
+      video.currentTime = currentTime;
+      video.addEventListener("timeupdate", () => {
+        this.setVideoInfo();
+        if (this.currentTime <= this.duration) {
+          this.generateCanvas();
+        } else {
+          this.nextFrame();
+        }
+      });
+      this.video = video;
+      document.body.appendChild(video);
+    }
+    setVideoInfo() {
+      const video = this.video;
+      this.videoWidth = video.videoWidth;
+      this.videoHeight = video.videoHeight;
+      this.duration = Math.floor(video.duration || 0);
+    }
+    appointFrame(time) {
+      if (!this.video) {
+        console.warn("\u8BF7\u5148\u521D\u59CB\u5316");
+        return;
+      }
+      const duration = this.duration;
+      time = time > duration ? duration : time;
+      this.currentTime = time;
+      this.video.currentTime = time;
+    }
+    previousFrame() {
+      let currentTime = this.currentTime;
+      if (this.currentTime === 0) {
+        return;
+      }
+      currentTime--;
+      this.appointFrame(currentTime);
+    }
+    nextFrame() {
+      const duration = this.duration;
+      let currentTime = this.currentTime;
+      if (this.currentTime === duration) {
+        return;
+      }
+      currentTime++;
+      this.appointFrame(currentTime);
+    }
+    generateCanvas() {
+      if (!this.video) {
+        console.warn("\u8BF7\u5148\u521D\u59CB\u5316");
+        return;
+      }
+      const self = this;
+      const canvas = this.canvas || document.createElement("canvas");
+      const ctx = canvas.getContext("2d", { alpha: false });
+      const imgWidth = this.imgWidth;
+      const isCheckBackgroundColor = this.isCheckBackgroundColor;
+      let videoWidth = this.videoWidth;
+      let videoHeight = this.videoHeight;
+      if (!this.canvas) {
+        if (imgWidth) {
+          videoHeight = imgWidth / (videoWidth / videoHeight);
+          videoWidth = imgWidth;
+        }
+        canvas.width = videoWidth;
+        canvas.height = videoHeight;
+      }
+      ctx == null ? void 0 : ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height);
+      if (isCheckBackgroundColor) {
+        const checkImageResult = this.checkImage(ctx, videoWidth, videoHeight);
+        if (!checkImageResult) {
+          this.nextFrame();
+          return;
+        }
+      }
+      const img = canvas.toDataURL(this.imageType, self.quality);
+      this.success && this.success(img, this.video);
+    }
+    /**
+     * 检查图片是否是纯色图
+     * @param { Object } ctx canvas执行环境
+     * @param { Number } width canvas宽度
+     * @param { Number } height canvas高度
+     */
+    checkImage(ctx, width, height) {
+      const imgData = ctx.getImageData(0, 0, width, height);
+      const imgDataContent = imgData.data;
+      const rgbObj = {};
+      let differentLen = 0;
+      for (let i = 0, len = imgDataContent.length; i < len; i += 4) {
+        const key = imgDataContent.slice(i, i + 4).join("");
+        if (!rgbObj[key]) {
+          rgbObj[key] = 1;
+          differentLen++;
+        }
+        if (differentLen > 100) {
+          return true;
+        }
+      }
+      return false;
+    }
+    /**
+     * 将base64转换成 Blob
+     * @param { String } code base64字符串
+     * @returns { Blob } 返回Blob对象
+     */
+    base64ToBlob(code) {
+      if (!code) {
+        console.warn("base64\u4E0D\u80FD\u4E3A\u7A7A");
+        return;
+      }
+      let parts = code.split(";base64,");
+      let contentType = parts[0].split(":")[1];
+      let raw = window.atob(parts[1]);
+      let rawLength = raw.length;
+      let uInt8Array = new Uint8Array(rawLength);
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+      }
+      return new Blob([uInt8Array], {
+        type: contentType
+      });
+    }
+    /**
+     * 下载文件
+     * @param {String} code base64字符串
+     */
+    downloadFile(code) {
+      const fileName = Date.now();
+      if (!code) {
+        console.warn("base64\u4E0D\u80FD\u4E3A\u7A7A");
+        return;
+      }
+      let aLink = document.createElement("a");
+      let blob = this.base64ToBlob(code);
+      if (!blob)
+        return;
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("click", true, true);
+      aLink.download = fileName + "";
+      aLink.href = URL.createObjectURL(blob);
+      aLink.click();
+    }
+  };
+  function videoFrameCover(opt) {
+    return new VideoFrameCoverClass(opt);
+  }
+  if (typeof window !== "undefined") {
+    window.videoFrameCover = videoFrameCover;
+  }
+})();

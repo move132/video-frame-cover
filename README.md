@@ -7,18 +7,19 @@ npm install video-frame-cover --save
 
 ```
 ## Usage Examples
-use 
-``` html
-<script src="./video-frame-cover.min.js"></script>
+Browser usage 
 ```
+<script src="https://unpkg.com/video-frame-cover@2.0.4/dist/index.global.js"></script>
+```
+
 ``` js
 import videoFrameCover from "video-frame-cover";
 ```
 
 Javascript
 ``` js
-new VideoFrameCover({
-    url: this.videoUrl,
+videoFrameCover({
+    url: this.videoUrl, // video url
     quality: 0.9,
     imageType: 'image/jpeg',
     isCheckBackgroundColor: true, // Check whether the image is a solid color
@@ -28,7 +29,7 @@ new VideoFrameCover({
 })
 ```
 ## example
-[example](https://move132.github.io/video-frame-cover/example/)
+[online example](https://move132.github.io/video-frame-cover/example/)
 
 ### Options
 

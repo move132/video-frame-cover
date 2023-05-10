@@ -1,6 +1,6 @@
 declare global {
     interface Window {
-        VideoFrameCover: typeof VideoFrameCover;
+        videoFrameCover: typeof videoFrameCover;
     }
 }
 type Options = {
@@ -58,6 +58,6 @@ declare class VideoFrameCoverClass {
      */
     downloadFile(code: any): void;
 }
-declare function VideoFrameCover(opt: Options): VideoFrameCoverClass;
+declare function videoFrameCover(opt: Options): VideoFrameCoverClass;
 
-export { VideoFrameCover as default };
+export { videoFrameCover as default };

@@ -1,6 +1,6 @@
 declare global {
 	interface Window {
-		VideoFrameCover: typeof VideoFrameCover
+		videoFrameCover: typeof videoFrameCover
 	}
 }
 
@@ -264,9 +264,9 @@ class VideoFrameCoverClass {
 	}
 }
 
-export default function VideoFrameCover(opt: Options) {
+export default function videoFrameCover(opt: Options) {
 	return new VideoFrameCoverClass(opt)
 }
 if (typeof window !== 'undefined') {
-	window.VideoFrameCover = VideoFrameCover
+	window.videoFrameCover = videoFrameCover
 }

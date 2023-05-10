@@ -155,12 +155,13 @@
                     return
                 }
                 this.isLoading = true
-                this.cover = VideoFrameCover({
+                this.cover = videoFrameCover({
                     url: this.videoUrl,
                     quality: 0.9,
                     imageType: 'image/jpeg',
                     isCheckBackgroundColor: true, // 是否检查图片为纯色
                     success: (res, e) => {
+                        console.dir(e)
                         this.videoInfo = {
                             videoWidth: e.videoWidth,
                             videoHeight: e.videoHeight,
