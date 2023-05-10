@@ -12,12 +12,11 @@ Browser usage
 <script src="https://unpkg.com/video-frame-cover@2.0.4/dist/index.global.js"></script>
 ```
 
+Javascript
+
 ``` js
 import videoFrameCover from "video-frame-cover";
-```
 
-Javascript
-``` js
 videoFrameCover({
     url: this.videoUrl, // video url
     quality: 0.9,
