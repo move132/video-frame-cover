@@ -10,6 +10,7 @@ npm install video-frame-cover --save
 Browser usage 
 ```
 <script src="https://unpkg.com/video-frame-cover@2.0.4/dist/index.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/video-frame-cover@2.0.4/dist/index.global.js"></script>
 ```
 
 Javascript
