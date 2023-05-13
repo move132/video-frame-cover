@@ -107,7 +107,7 @@ Get the next second video picture
 `time` how many seconds of the picture to get the specified frame video picture
 
 ```js
-const videoFrameCover = videoFrameCover({
+const videoFrame = videoFrameCover({
     url: './thwj.mp4', 
     quality: 0.9,
     imageType: 'image/jpeg',
@@ -116,8 +116,9 @@ const videoFrameCover = videoFrameCover({
         this.imgsrc = res
     }
 })
-videoFrameCover.downloadFile(this.imgsrc)
-videoFrameCover.previousFrame()
-videoFrameCover.nextFrame()
-videoFrameCover.appointFrame(23) // Picture at 23 seconds
+
+videoFrame.downloadFile(this.imgsrc)
+videoFrame.previousFrame()
+videoFrame.nextFrame()
+videoFrame.appointFrame(23) // Picture at 23 seconds
 ```
